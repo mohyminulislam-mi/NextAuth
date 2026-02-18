@@ -6,7 +6,7 @@ export const postUser = async (payload) => {
   console.log(payload);
 
   // 1. check user or not
-  const isExit = await dbConnect("users").findOne({ email: payload });
+  const isExit = await dbConnect("users").findOne({ email: payload.email });
   if (isExit) {
     return {
       success: false,
@@ -14,10 +14,8 @@ export const postUser = async (payload) => {
     };
   }
 
-  const hassPassword = await bcrypt.hash(payload.password, 10);
-  console.log(hassPassword);
-
   // 2. create new user
+  const hassPassword = await bcrypt.hash(payload.password, 10);
   const newUser = {
     ...payload,
     createdAt: new Date().toDateString(),
@@ -33,6 +31,11 @@ export const postUser = async (payload) => {
     return {
       success: true,
       massage: `user register successful ${result.insertedId.toString(0)}`,
+    };
+  } else {
+    return {
+      success: false,
+      message: `Something wrong. Try again`,
     };
   }
 };
