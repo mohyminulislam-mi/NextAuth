@@ -2,6 +2,7 @@ import { dbConnect } from "@/lib/dbConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -30,6 +31,11 @@ export const authOptions = {
         const isPasswordOk = await bcrypt.compare(password, user.password);
         if (isPasswordOk) return user;
       },
+    }),
+    // google provider
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
 
