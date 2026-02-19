@@ -5,8 +5,9 @@ import { SiMongodb } from "react-icons/si";
 import UserCard from "@/components/UserCard";
 import { getServerSession } from "next-auth";
 import AuthButton from "@/components/AuthButton";
+import { authOptions } from "@/lib/authOptions";
 export default async function Home() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   return (
     <div className="min-h-screen relative flex flex-col justify-center items-center gap-5 ">
       <UserCard></UserCard>

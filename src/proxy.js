@@ -19,11 +19,11 @@ export async function proxy(req) {
     const loginUrl = new URL("/api/auth/signin", req.url);
     loginUrl.searchParams.set("callbackUrl", reqPath);
     return NextResponse.redirect(loginUrl);
-    }
-    // logic for dashboard routes 
-    if (isAuthenticated && !isAdmin && isAdminRoutes) {
-        return NextResponse.redirect(new URL("/forbidden", req.url));
-    } 
+  }
+  // logic for dashboard routes
+  if (isAuthenticated && !isAdmin && isAdminRoutes) {
+    return NextResponse.redirect(new URL("/forbidden", req.url));
+  }
   return NextResponse.next();
 }
 
